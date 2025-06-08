@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Drawer, IconButton, List, ListItemButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Drawer, IconButton, List, ListItemButton, Stack, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AddHomeIcon from '@mui/icons-material/AddHome';
@@ -10,8 +10,18 @@ const drawerWidth = 150;
 export default function Header() {
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   return (
@@ -40,6 +50,9 @@ export default function Header() {
               👑VIP
             </Button>
           )}
+          <IconButton sx={{ ml: 4 }} color="inherit" onClick={handleDialogOpen}>
+            <HelpOutlineIcon />
+          </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
             size="large"
@@ -92,6 +105,23 @@ export default function Header() {
           </List>
         </Box>
       </Drawer>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>{"Please use Cryptocurrency"}</DialogTitle>
+        <DialogContent>
+          <Stack direction={"column"} sx={{ m: 0 }} spacing={2}>
+            <Box>Settlement fees at Fileland.io are high.</Box>
+            <Box>Trade using cryptocurrency here at Session</Box>
+            <Box><img src={"https://as2.ftcdn.net/v2/jpg/04/88/43/13/1000_F_488431309_LtZcSUiWJivAKzSsHSaM8Ti050zps8Rp.jpg"} style={{ width: '70%', height: '70%' }} loading="lazy" /></Box>
+            <Box>Session ID
+              056fca19d672f80cc678f8a7fdc8f01ca5d4cfcef1cb55790fa2d7908512195777</Box>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
