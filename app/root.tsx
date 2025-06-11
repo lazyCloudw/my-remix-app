@@ -28,6 +28,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content="2539" name="filelandio" />
+        <meta name="fikper.com" content="rmuPpgbtwa" />
         <Meta />
         <Links />
       </head>

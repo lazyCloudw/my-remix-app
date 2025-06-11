@@ -21,21 +21,11 @@ export default defineConfig({
         v3_singleFetch: true,
         v3_lazyRouteDiscovery: true,
       },
-      ignoredRouteFiles: ['*/**'],
-        routes: async (defineRoutes) => {
-          return flatRoutes('routes', defineRoutes, {
-            ignoredRouteFiles: [
-              '.*',
-              '**/*.css',
-              '**/*.test.{js,jsx,ts,tsx}',
-              '**/__*.*',
-              '**/*.server.*',
-              '**/*.client.*',
-            ],
-          });
-        },
+      routes: (defineRoutes) => {
+        return flatRoutes("routes", defineRoutes);
+      },
     }),
-    remixRoutes(),
+    // remixRoutes(),
     tsconfigPaths(),
   ],
 });
