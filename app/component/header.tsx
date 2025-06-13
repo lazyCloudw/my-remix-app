@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AddHomeIcon from '@mui/icons-material/AddHome';
 import XIcon from '@mui/icons-material/X';
+import ChatIcon from '@mui/icons-material/Chat';
 import React from "react";
 
 const drawerWidth = 150;
@@ -27,7 +28,13 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar sx={{ backgroundColor: "#778899" }}>
-        <Toolbar>
+        <Toolbar
+          sx={{
+            flexWrap: "wrap", // 追加: ボタンが折り返されるように
+            minHeight: { xs: 56, sm: 64 },
+            px: { xs: 1, sm: 2 },
+          }}
+        >
           <IconButton
             size="large"
             edge="start"
@@ -45,13 +52,23 @@ export default function Header() {
             <Button
               variant='contained'
               onClick={() => window.location.assign('/vip')}
-              sx={{ ml: 4, p: 1.5, fontWeight: "bold", borderRadius: 3, backgroundColor: "#d2b48c" }}
+              sx={{
+                ml: { xs: 1, sm: 4 },
+                p: 1,
+                fontWeight: "bold",
+                borderRadius: 3,
+                backgroundColor: "#d2b48c",
+                whiteSpace: "nowrap",
+              }}
             >
               👑VIP
             </Button>
           )}
-          <IconButton sx={{ ml: 4 }} color="inherit" onClick={handleDialogOpen}>
+          <IconButton sx={{ ml: { xs: 1, sm: 4 } }} color="inherit" onClick={handleDialogOpen}>
             <HelpOutlineIcon />
+          </IconButton>
+          <IconButton sx={{ ml: { xs: 1, sm: 4 } }} color="inherit" onClick={() => window.location.assign('/bbs')}>
+            <ChatIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
@@ -101,6 +118,15 @@ export default function Header() {
             </ListItemButton>
             <ListItemButton href='https://fileland.io/premium2539.html'>
               <Typography fontWeight={"bold"}>Fileland</Typography>
+            </ListItemButton>
+            <ListItemButton href='/'>
+              <Typography fontWeight={"bold"}>・HOME</Typography>
+            </ListItemButton>
+            <ListItemButton href='/vip'>
+              <Typography fontWeight={"bold"}>・VIP</Typography>
+            </ListItemButton>
+            <ListItemButton href='/bbs'>
+              <Typography fontWeight={"bold"}>・Note</Typography>
             </ListItemButton>
           </List>
         </Box>

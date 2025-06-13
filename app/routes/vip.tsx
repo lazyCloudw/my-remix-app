@@ -3,6 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import React, { useEffect, useState } from 'react';
 import Seller from "../component/seller";
 import Header from "../component/header";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,6 +19,12 @@ type selljsonType = {
   dl_url: string
   exp?: string
 }
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
 export default function Vip() {
 
@@ -51,54 +58,58 @@ export default function Vip() {
 
   if (isLoading) {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          width: '100vw',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          bgcolor: 'background.default',
-          zIndex: 2000,
-        }}
-      >
-        <CircularProgress />
-      </Box>
+      <ThemeProvider theme={lightTheme}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh',
+            width: '100vw',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            bgcolor: 'background.default',
+            zIndex: 2000,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </ThemeProvider>
     );
   }
 
   return (
-    <Box sx={{ m: 0 }}>
-      <Box sx={{ position: 'sticky', top: 0, zIndex: 1100 }}>
-        <Header />
+    <ThemeProvider theme={lightTheme}>
+      <Box sx={{ m: 0 }}>
+        <Box sx={{ position: 'sticky', top: 0, zIndex: 1100 }}>
+          <Header />
+        </Box>
+        <Grid container spacing={1} sx={{ mb: 4, mt: 8 }}>
+          {
+            paginatedData.map((data: selljsonType) => {
+              return (
+                <Grid size={12} key={data.no}>
+                  <Seller title={data.no} img={data.img_url} vid={data.vid_url} dl={data.dl_url} exp={data.exp} />
+                </Grid>
+              );
+            })
+          }
+        </Grid>
+        <Pagination
+          count={Math.ceil(jsonSellData.length / itemsPerPage)}
+          page={page}
+          onChange={pageChange}
+          color="secondary"
+          sx={{
+            pt: 10,
+            pb: 4,
+            position: 'absolute',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
       </Box>
-      <Grid container spacing={1} sx={{ mb: 4, mt: 8 }}>
-        {
-          paginatedData.map((data: selljsonType) => {
-            return (
-              <Grid size={12} key={data.no}>
-                <Seller title={data.no} img={data.img_url} vid={data.vid_url} dl={data.dl_url} exp={data.exp} />
-              </Grid>
-            );
-          })
-        }
-      </Grid>
-      <Pagination
-        count={Math.ceil(jsonSellData.length / itemsPerPage)}
-        page={page}
-        onChange={pageChange}
-        color="secondary"
-        sx={{
-          pt: 10,
-          pb: 4,
-          position: 'absolute',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}
-      />
-    </Box>
+    </ThemeProvider>
   );
 }
